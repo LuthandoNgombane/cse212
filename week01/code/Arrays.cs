@@ -13,7 +13,21 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        //LN - Plan:
+        // 1. Creating a new array of size 'length' to hold the multiples.
+        // 2. Using a for loop to iterate from 1 to length (inclusive).
+        // 3. In each iteration, multiplying the input 'number' by the current loop index.
+        // 4. Storing the result in the array at the current index - 1 (because arrays are zero-indexed).
+        // 5. After the loop finishes, returning the array.
+        
+        double[] multiples = new double[length];  
+
+        for (int i = 1; i <= length; i++)         
+        {
+            multiples[i - 1] = number * i;        
+        }
+
+        return multiples;
     }
 
     /// <summary>
@@ -29,5 +43,21 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // LN -Plan:
+        // 1. The goal is to shift elements to the right by 'amount'.
+        // 2. This means the last 'amount' elements should move to the front.
+        // 3. Using List.GetRange to get the last 'amount' elements.
+        // 4. Removing the last 'amount' elements from the original list.
+        // 5. Inserting the saved elements at the front of the list.
+        // 6. This changes the original list in place.
+
+        List<int> lastElements = data.GetRange(data.Count - amount, amount);
+
+        data.RemoveRange(data.Count - amount, amount);
+
+        data.InsertRange(0, lastElements);
+
+        
     }
 }
