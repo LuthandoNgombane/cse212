@@ -1,4 +1,4 @@
-﻿public class PriorityQueue
+public class PriorityQueue
 {
     private List<PriorityItem> _queue = new();
 
@@ -32,6 +32,11 @@
 
         // Remove and return the item with the highest priority
         var value = _queue[highPriorityIndex].Value;
+
+        //LN - Removing the item at the highest priority index because it is the one we want to dequeue
+        // This ensures that the item is removed from the queue.
+        _queue.RemoveAt(highPriorityIndex);
+
         return value;
     }
 
