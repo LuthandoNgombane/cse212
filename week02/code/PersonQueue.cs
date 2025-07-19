@@ -11,10 +11,13 @@ public class PersonQueue
     /// Add a person to the queue
     /// </summary>
     /// <param name="person">The person to add</param>
+   
     public void Enqueue(Person person)
     {
-        _queue.Insert(0, person);
+        //LN - Add the person to the end of the queue with Add() instead of using Insert() because Insert() adds the person at the front of the queue
+        _queue.Add(person); 
     }
+
 
     public Person Dequeue()
     {
