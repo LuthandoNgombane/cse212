@@ -40,9 +40,21 @@ public class TakingTurnsQueue
         else
         {
             Person person = _people.Dequeue();
-            if (person.Turns > 1)
+
+            //LN - If the person has positive turns, decrement their turns and re-enqueue them
+            // If the person has 0 or negative turns, they are considered to have infinite turns
+            // and should be re-enqueued without decrementing their turns.
+            // This ensures that they remain in the queue indefinitely.
+            if (person.Turns > 0) 
             {
                 person.Turns -= 1;
+                if (person.Turns > 0)
+                {
+                    _people.Enqueue(person);
+                }
+            }
+            else 
+            {
                 _people.Enqueue(person);
             }
 
