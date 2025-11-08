@@ -13,7 +13,23 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+       /* 1. Create a new double array called result with exactly 'length' elements.
+         * 2. I need the 1st multiple (index 0) to be the number itself.
+         * 3. The 2nd multiple = number * 2, 3rd = number * 3, etc.
+         * 4. Use a for-loop that runs from 0 to length-1.
+         * 5. In each iteration i, put (number * (i+1)) into result[i].
+         *    - Using multiplication avoids adding floating-point errors over many additions.
+         * 6. After the loop, return the completed array.
+         */
+
+        double[] result = new double[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            result[i] = number * (i + 1);
+        }
+
+        return result;
     }
 
     /// <summary>
@@ -29,5 +45,45 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        /*
+         * STEP-BY-STEP PLAN (using List slicing with GetRange):
+         * 1. If the list is empty, do nothing and return.
+         * 2. Since amount can equal data.Count, use modulo to handle full rotations:
+         *    amount = amount % data.Count  → rotating by full length does nothing.
+         * 3. If amount becomes 0 after modulo, just return (no change needed).
+         * 4. Split the list into two parts:
+         *    - lastPart  → the last 'amount' elements (these move to the front)
+         *    - firstPart → everything before the last 'amount' elements
+         * 5. Use GetRange to create shallow copies of each part.
+         * 6. Clear the original list.
+         * 7. Add the lastPart first (AddRange), then the firstPart (AddRange).
+         * 8. The list is now rotated right by 'amount' positions.
+         * 
+         * Why this works: Rotating right by k is equivalent to taking the last k elements
+         * and moving them to the beginning.
+         */
+
+        if (data.Count == 0) 
+        {
+            return;
+        }
+
+        // Handle full rotations (e.g., rotate by 9 on a 9-element list)
+        amount = amount % data.Count;
+
+        if (amount == 0) 
+        {
+            return;
+        }
+
+        // Get the two slices
+        List<int> lastPart  = data.GetRange(data.Count - amount, amount);
+        List<int> firstPart = data.GetRange(0, data.Count - amount);
+
+        // Rebuild the list in the correct order
+        data.Clear();
+        data.AddRange(lastPart);
+        data.AddRange(firstPart);
     }
 }
