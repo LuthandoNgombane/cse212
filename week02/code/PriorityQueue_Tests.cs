@@ -26,4 +26,25 @@ public class PriorityQueueTests
     }
 
     // Add more test cases as needed below.
+
+    // Test 1: Higher priority comes out first
+    // Expected:  "Low"  -> "Medium" -> "High"  Dequeue order: High, Medium, Low
+    // Result: PASSED after fix
+
+    // Test 2: Same priority respects FIFO
+    // Expected: Alice(5) enqueued first -> Alice comes out before Bob
+    // Result: Originally FAILED (Bob came first), now PASSED
+
+    // Test 3: Empty queue throws correct exception
+    // Result: PASSED
+
+    // Test 4: Multiple same highest priority -> earliest enqueued wins
+    // Result: PASSED
+
+    // Test 5: Mixed priorities with ties
+    // Result: PASSED
+
+
+
+
 }

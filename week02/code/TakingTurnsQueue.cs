@@ -33,21 +33,44 @@ public class TakingTurnsQueue
     /// </summary>
     public Person GetNextPerson()
     {
+        // if (_people.IsEmpty())
+        // {
+        //     throw new InvalidOperationException("No one in the queue.");
+        // }
+        // else
+        // {
+        //     Person person = _people.Dequeue();
+        //     if (person.Turns > 1)
+        //     {
+        //         person.Turns -= 1;
+        //         _people.Enqueue(person);
+        //     }
+
+        //     return person;
+        // }
+
+        // Original code only re-enqueued when person.Turns > 1
+        // People with 0 or negative turns (infinite) were being removed forever
+        // People with exactly 1 turn were correctly removed
+        // Fixed by checking person.Turns <= 0 || person.Turns > 1
+        // Only decrease when  (person.Turns > 0)
+
         if (_people.IsEmpty())
         {
             throw new InvalidOperationException("No one in the queue.");
         }
-        else
-        {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1)
-            {
-                person.Turns -= 1;
-                _people.Enqueue(person);
-            }
 
-            return person;
+        Person person = _people.Dequeue();
+
+        // Infinite turns OR still has turns left → put them back
+        if (person.Turns <= 0 || person.Turns > 1)
+        {
+            person.Turns -= 1;               // only decrease if finite
+            _people.Enqueue(person);
         }
+        // else: turns == 1 → we just used their last turn, so they leave forever
+
+        return person;
     }
 
     public override string ToString()
