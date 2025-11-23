@@ -1,5 +1,8 @@
 using System.Collections;
 
+//LN - Added for List<int> 
+using System.Collections.Generic;    
+
 public class BinarySearchTree : IEnumerable<int>
 {
     private Node? _root;
@@ -78,9 +81,22 @@ public class BinarySearchTree : IEnumerable<int>
         }
     }
 
+    //LN Problem 3 – Reverse in-order traversal (right → root → left)
     private void TraverseBackward(Node? node, List<int> values)
     {
         // TODO Problem 3
+        if (node is not null)
+        {
+            //LN - Right subtree first (largest)
+            TraverseBackward(node.Right, values);  
+
+            //LN - Then root
+            values.Add(node.Data);                 
+
+            //LN - Then left subtree (smallest)
+            TraverseBackward(node.Left, values);   
+
+        }
     }
 
     /// <summary>
